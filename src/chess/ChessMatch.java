@@ -14,10 +14,10 @@ public class ChessMatch {
     }
 
     public ChessPiece[][] getPieces(){
-        ChessPiece[][] pieces = new ChessPiece[board.getRow()][board.getColumn()];
+        ChessPiece[][] pieces = new ChessPiece[board.getRows()][board.getColumns()];
 
-        for (int i = 0; i < board.getRow(); i++){
-            for (int j = 0; j < board.getColumn(); j++){
+        for (int i = 0; i < board.getRows(); i++){
+            for (int j = 0; j < board.getColumns(); j++){
                 pieces[i][j] = (ChessPiece) board.getPiece(i, j);
             }
         }
