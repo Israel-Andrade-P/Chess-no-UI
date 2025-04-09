@@ -58,7 +58,13 @@ public class ChessMatch {
 
         check = testCheck(opponent(currentPlayer)) ? true : false;
 
-        nextTurn();
+        if (testCheckMate(opponent(currentPlayer))) {
+            checkMate = true;
+        }
+        else {
+            nextTurn();
+        }
+        
         return (ChessPiece) capturedPiece;
     }
 
@@ -141,7 +147,21 @@ public class ChessMatch {
 
         List<Piece> pieces = piecesOnTheBoard.stream().filter(piece -> ((ChessPiece) piece).getColor() == color).toList();
         for (Piece p : pieces){
-            
+            boolean[][] moves = p.possibleMoves();
+            for (int i = 0; i < moves.length; i++){
+                for (int j = 0; j < moves.length; j++){
+                    if (moves[i][j]) {
+                        Position source = ((ChessPiece) p).getChessPosition().toPosition();
+                        Position target = new Position(i, j);
+                        Piece capturedPiece = makeMove(source, target);
+                        boolean check = testCheck(color);
+                        undoMove(source, target, capturedPiece);
+                        if (!check) {
+                            return false;
+                        }
+                    }
+                }
+            }
         }
         return true;
     }
