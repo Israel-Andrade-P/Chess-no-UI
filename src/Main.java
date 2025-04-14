@@ -39,7 +39,11 @@ public class Main {
 
                 if (match.getPromoted() != null){
                     System.out.println("Enter piece for promotion B/N/R/Q: ");
-                    String type = sc.nextLine();
+                    String type = sc.nextLine().toUpperCase();
+                    while (!type.equals("B") && !type.equals("K") && !type.equals("R") && !type.equals("Q")) {
+                        System.out.println("Invalid value! Enter piece for promotion B/N/R/Q: ");
+                        type = sc.nextLine().toUpperCase();
+                    }
                     match.replacePromotedPiece(type);
                 }
             }
